@@ -5,6 +5,8 @@ import { PrismaClient } from '@prisma/client';
 import doctorRoutes from './routes/doctor';
 import appointmentRoutes from './routes/appointment';
 import userRoutes from './routes/user';
+import cors from 'cors';
+import morgan from 'morgan';
 
 dotenv.config();
 
@@ -18,7 +20,9 @@ const corsOptions = {
 };
 
 // Middleware
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
 // Database connection
 prisma.$connect().then(() => {
