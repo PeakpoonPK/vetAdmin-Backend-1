@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
 import doctorRoutes from './routes/doctor';
 import appointmentRoutes from './routes/appointment';
+import doctorScheduleRoutes from './routes/doctorSchedule';
 import userRoutes from './routes/user';
 import cors from 'cors';
 import morgan from 'morgan';
@@ -39,6 +40,7 @@ app.get('/', (req, res) => {
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/doctorSchedule', doctorScheduleRoutes);
 
 // Start server
 app.listen(port, () => {

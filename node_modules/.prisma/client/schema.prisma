@@ -8,23 +8,56 @@ generator client {
 }
 
 model Doctor {
-  id          Int      @id @default(autoincrement())
-  name        String
-  specialty   String
-  availableAt DateTime
+  id           Int              @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  phone        String
+  email        String           @unique
+  specialty    String
+  craetedAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  schedules    DoctorSchedule[]
+  appointments Appointment[]
+}
+
+model DoctorSchedule {
+  id       Int      @id @default(autoincrement())
+  doctorId Int
+  day      DateTime
+  start    DateTime
+  end      DateTime
+  Doctor   Doctor   @relation(fields: [doctorId], references: [id])
 }
 
 model Appointment {
-  id       Int      @id @default(autoincrement())
-  doctorId Int
-  userId   Int
-  date     DateTime
-  status   String
+  id        Int      @id @default(autoincrement())
+  doctorId  Int
+  date      DateTime
+  patientId Int?
+  status    String
+  Doctor    Doctor   @relation(fields: [doctorId], references: [id])
+  Patient   Patient? @relation(fields: [patientId], references: [id])
+}
+
+model Patient {
+  id           Int           @id @default(autoincrement())
+  name         String
+  age          Int
+  species      String
+  breed        String
+  sex          String
+  weight       String
+  ownerName    String
+  ownerPhone   String
+  ownerEmail   String
+  appointments Appointment[]
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  password String
+  id        Int     @id @default(autoincrement())
+  firstName String
+  lastName  String
+  phone     String?
+  email     String  @unique
+  password  String
 }

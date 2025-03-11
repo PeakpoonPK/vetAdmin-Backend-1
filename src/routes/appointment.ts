@@ -14,6 +14,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get all appointments by doctorId
+router.get('/doctorId/:id', async (req, res) => {
+  try {
+    const appointments = await prisma.appointment.findMany({
+      where: { doctorId: Number(req.params.id) },
+    });
+    res.status(200).json(appointments);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch appointments by doctorId' });
+  }
+});
+
 // Update an appointment
 router.put('/:id', async (req, res) => {
   const { id } = req.params;

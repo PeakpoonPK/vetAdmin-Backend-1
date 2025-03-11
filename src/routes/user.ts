@@ -24,11 +24,11 @@ router.post('/login', async (req, res) => {
 
 // Create a new user
 router.post('/', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { firstName, lastName, phone, email, password } = req.body;
   try {
     const hashedPassword = bcrypt.hashSync(password, 10);
     const user = await prisma.user.create({
-      data: { name, email, password: hashedPassword },
+      data: { firstName, lastName, phone, email, password: hashedPassword },
     });
     res.status(201).json(user);
   } catch (error) {

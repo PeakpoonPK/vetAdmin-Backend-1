@@ -6,10 +6,10 @@ const prisma = new PrismaClient();
 
 // Create a new doctor
 router.post('/', async (req, res) => {
-  const { name, specialty, availableAt } = req.body;
+  const { firstName, lastName, specialty, phone, email } = req.body;
   try {
     const doctor = await prisma.doctor.create({
-      data: { name, specialty, availableAt: new Date(availableAt) },
+      data: { firstName, lastName, specialty, phone, email },
     });
     res.status(201).json(doctor);
   } catch (error) {
@@ -30,11 +30,11 @@ router.get('/', async (req, res) => {
 // Update a doctor
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
-  const { name, specialty, availableAt } = req.body;
+  const { firstName, lastName, specialty, phone, email } = req.body;
   try {
     const doctor = await prisma.doctor.update({
       where: { id: Number(id) },
-      data: { name, specialty, availableAt: new Date(availableAt) },
+      data: { firstName, lastName, specialty, phone, email },
     });
     res.status(200).json(doctor);
   } catch (error) {
