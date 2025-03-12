@@ -104,6 +104,12 @@ async function main() {
         email: "reception@example.com",
         password: "hashed_password",
       },
+      {
+        firstName: "admin",
+        lastName: "admin",
+        email: "admin@gmail.com",
+        password: "$2b$10$aRx.8OzbfkUcD7r8Y9pLx.9xPJ0LH4LQgA/bP.zm4QVZhDwwcxpDS"
+      }
     ],
   });
 

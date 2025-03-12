@@ -20,7 +20,12 @@ router.post('/', async (req, res) => {
 // Get all doctors
 router.get('/', async (req, res) => {
   try {
-    const doctors = await prisma.doctor.findMany();
+    const doctors = await prisma.doctor.findMany({
+      include: {
+        appointments: true,
+        schedules: true,
+      },
+    });
     res.status(200).json(doctors);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch doctors' });
