@@ -7,7 +7,9 @@ const prisma = new PrismaClient();
 // Get all appointments
 router.get('/', async (req, res) => {
   try {
-    const appointments = await prisma.appointment.findMany();
+    const appointments = await prisma.appointment.findMany({
+      include: { Doctor: true, Patient: true },
+    });
     res.status(200).json(appointments);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch appointments' });

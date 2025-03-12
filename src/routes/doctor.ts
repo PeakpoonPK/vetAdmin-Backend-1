@@ -53,6 +53,10 @@ router.delete('/:id', async (req, res) => {
   try {
     await prisma.doctor.delete({
       where: { id: Number(id) },
+      include: {
+        schedules: true,
+        appointments: true,
+      },
     });
     res.status(204).end();
   } catch (error) {
