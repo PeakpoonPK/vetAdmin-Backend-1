@@ -71,4 +71,19 @@ router.post('/:id/cancel', async (req, res) => {
   }
 });
 
+// Update appointment status
+router.patch('/:id/status', async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  try {
+    const appointment = await prisma.appointment.update({
+      where: { id: Number(id) },
+      data: { status },
+    });
+    res.status(200).json(appointment);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update appointment status' });
+  }
+});
+
 export default router;
